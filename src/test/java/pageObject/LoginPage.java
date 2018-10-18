@@ -1,16 +1,17 @@
 package pageObject;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class LoginPage extends AbstractPage {
-
-	public LoginPage(WebDriver driver) {
-		super(driver);
-	}
+	
+	@Autowired
+	EventFiringWebDriver driver;
 
 	@FindBy(xpath = "//input[@id = 'username']")
 	private WebElement usernameField;
@@ -24,9 +25,15 @@ public class LoginPage extends AbstractPage {
 	@FindBy(xpath = "//div[@class='alertbox_center']")
 	private WebElement loginError;
 	
+	public LoginPage(EventFiringWebDriver driver) {
+		this.driver = driver; 
+		PageFactory.initElements(driver, this);
+	}
+	
 	public LoginPage enterUsername(String s) {
 		waitForElement(usernameField);
 		usernameField.sendKeys(s);
+		
 		return this;
 	}
 	
