@@ -1,20 +1,20 @@
 package services;
 
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import pageObject.LoginPage;
 
+@Service
 public class UserService {
 	
-	public void loginToOcApp(String username, String password, WebDriver webDriver) {
-		LoginPage loginPage = PageFactory.initElements(webDriver, LoginPage.class);
-		loginPage.enterUsername(username).enterPassword(password); 
-		loginPage.clickLoginButton();	
-		
+	@Autowired
+	LoginPage loginPage;
+
+	public void loginToOcApp(String username, String password) {
+		loginPage.enterUsername(username).enterPassword(password);
+		loginPage.clickLoginButton();
+
 	}
-	
-	
+
 }
