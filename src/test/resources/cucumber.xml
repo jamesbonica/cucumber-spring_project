@@ -10,7 +10,7 @@
 	 <beans profile="qe-4x, jbonica, jmcinerney, hhonshuku, qe-aws, zique"> 
 	
 
-	<!-- 	 <import resource="classpath:cucumber-glue.xml" />--> 
+	   <import resource="classpath:cucumber-glue.xml" />
 
 		<context:annotation-config />
 		<context:component-scan base-package="config" />

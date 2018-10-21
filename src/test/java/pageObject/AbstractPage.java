@@ -6,13 +6,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import config.PropertiesLoader;
+
 public class AbstractPage {
 
 	@Autowired
 	EventFiringWebDriver driver;
+	
+	@Autowired
+	PropertiesLoader propertiesLoader;
 
 	public AbstractPage navigateToWebApp() {
-		driver.navigate().to("http://172.31.99.138:8080/OpenClinica/");
+		driver.navigate().to(propertiesLoader.getOcUrl());
 		return this;
 	}
 

@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
+import config.CrossScenarioCache;
 import config.ScenarioSession;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -22,12 +23,14 @@ public class UserSteps {
 	
 	@Autowired
 	ScenarioSession scenarioSession;
+	
+	@Autowired
+	CrossScenarioCache crossScenarioCache;
 
 	@When("^a user attempts to login using username \"([^\"]*)\"  with password \"([^\"]*)\"$")
 	public void a_user_attempts_to_login_using_username_with_password(String username, String password)
 			throws Exception {
 		userService.loginToOcApp(username, password);
-	
 	}
 
 	@Then("^OC must return the error message$")

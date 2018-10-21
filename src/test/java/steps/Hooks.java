@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 
+import config.DriverBean;
+import config.PropertiesLoader;
 import config.ScenarioSession;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -20,6 +22,9 @@ public class Hooks {
 	
 	@Autowired
     private ApplicationContext appContext;
+	
+	@Autowired
+    PropertiesLoader propertiesLoader;
 
 	@Autowired
 	EventFiringWebDriver driver;
@@ -33,13 +38,13 @@ public class Hooks {
 	@Before
 	public void setUp(Scenario scenario) {
 		scenarioSession.setScenario(scenario);
+		driver.manage().deleteAllCookies();
 		System.out.println("In before hook");
 		String[] beans = appContext.getBeanDefinitionNames();
         Arrays.sort(beans);
         for (String bean : beans) {
-            System.out.println(bean);
+       //     System.out.println(bean);
         }
-        loginPage.navigateToWebApp(); 
 	}
 
 	@After
@@ -48,6 +53,7 @@ public class Hooks {
 			final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 			scenario.embed(screenshot, "image/png"); // stick it in the report
 		}
+	//	driver.close();
 	}
 	
 }

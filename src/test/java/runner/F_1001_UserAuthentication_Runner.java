@@ -6,11 +6,12 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		plugin = { "pretty", "html:target/html/User_Authentication/", 
-				"json:target/json/User_Authentication.json" }, 
-		features = {"src/test/resources/cucumber/user_authentication.feature" }, 
+		tags = {"@Initialize, @Scenario=test"},
+		plugin = { "pretty", "html:target/html/1001_User_Authentication/", 
+				"json:target/json/1001_User_Authentication.json" }, 
+		features = {"src/test/resources/cucumber/1001_User_Authentication.feature" }, 
 		glue = {"steps" }, 
 		monochrome = true)
-public class MyFirstFeature_Runner {
+public class F_1001_UserAuthentication_Runner {
 
 }

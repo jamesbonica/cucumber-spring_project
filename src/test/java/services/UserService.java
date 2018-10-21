@@ -12,9 +12,10 @@ public class UserService {
 	LoginPage loginPage;
 
 	public void loginToOcApp(String username, String password) {
-		loginPage.enterUsername(username).enterPassword(password);
+        loginPage.navigateToWebApp();
+        loginPage.enterUsername(username).enterPassword(password);
 		loginPage.clickLoginButton();
 
 	}
-
+		
 }

@@ -4,11 +4,12 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import cucumber.api.Scenario;
 
-
-@Component
+@Configuration
+@Scope("cucumber-glue")
 public class ScenarioSession {
 
 	@Autowired

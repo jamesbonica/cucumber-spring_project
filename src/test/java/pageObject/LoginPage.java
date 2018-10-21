@@ -12,6 +12,9 @@ public class LoginPage extends AbstractPage {
 	
 	@Autowired
 	EventFiringWebDriver driver;
+	
+	@Autowired
+	PageObjectFactory pageObjectFactory;
 
 	@FindBy(xpath = "//input[@id = 'username']")
 	private WebElement usernameField;
@@ -32,8 +35,7 @@ public class LoginPage extends AbstractPage {
 	
 	public LoginPage enterUsername(String s) {
 		waitForElement(usernameField);
-		usernameField.sendKeys(s);
-		
+		usernameField.sendKeys(s);		
 		return this;
 	}
 	
@@ -49,6 +51,7 @@ public class LoginPage extends AbstractPage {
 	}
 	
 	public String getLoginErrorMessage() {
+		waitForElement(loginError);
 		return loginError.getText().trim();
 	}
 

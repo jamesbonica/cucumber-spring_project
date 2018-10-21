@@ -1,0 +1,127 @@
+[
+  {
+    "line": 2,
+    "elements": [
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 3029571748,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Hooks.setUp(Scenario)"
+            }
+          }
+        ],
+        "line": 6,
+        "name": "Initialize host domain for testing",
+        "description": "",
+        "id": "user-authentication;initialize-host-domain-for-testing",
+        "after": [
+          {
+            "result": {
+              "duration": 118494,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Hooks.tearDown(Scenario)"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 116315168,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "there is a study that uses the following variables:",
+            "match": {
+              "location": "StudySteps.there_is_a_study_that_uses_the_following_variables(Study\u003e)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "studyName",
+                  "studyManager",
+                  "studyOid"
+                ]
+              },
+              {
+                "cells": [
+                  "Study 1001: User Authentication Test",
+                  "01_manager",
+                  "S_01_AUTOM"
+                ]
+              }
+            ],
+            "keyword": "Given "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@Initialize"
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 9534426,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Hooks.setUp(Scenario)"
+            }
+          }
+        ],
+        "line": 12,
+        "name": "Root user executes API",
+        "description": "",
+        "id": "user-authentication;root-user-executes-api",
+        "after": [
+          {
+            "result": {
+              "duration": 69249,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Hooks.tearDown(Scenario)"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 873810313,
+              "status": "passed"
+            },
+            "line": 14,
+            "name": "the OC root user retrieve the API Key via an API",
+            "match": {
+              "location": "ApiSteps.the_OC_root_user_retrieve_her_API_Key_via_an_API()"
+            },
+            "keyword": "* "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@Scenario\u003dtest"
+          }
+        ]
+      }
+    ],
+    "name": "User Authentication",
+    "description": "  Description: As a study administrator, I want OC to accept only valid login credentials from authorized users",
+    "id": "user-authentication",
+    "keyword": "Feature",
+    "uri": "src/test/resources/cucumber/1001_User_Authentication.feature",
+    "tags": []
+  }
+]
