@@ -26,22 +26,40 @@ public class DriverBean {
 		EventFiringWebDriver evetFiringWebDriver;
 		WebDriver driver = null;
 		String browser = propertiesLoader.getBrowser().toLowerCase();
+		String testEnvironment = propertiesLoader.getTestEnvironment().toLowerCase();
 
-		switch (browser) {
-		case "firefox":
-			WebDriverManager.firefoxdriver().setup();
-			System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "true");
-			System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
-			driver = new FirefoxDriver();
+		switch (testEnvironment) {
+		case "local":
+			switch (browser) {
+			case "firefox":
+				WebDriverManager.firefoxdriver().setup();
+				System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "true");
+				System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
+				driver = new FirefoxDriver();
+				break;
+			case "chrome":
+				WebDriverManager.chromedriver().setup();
+				driver = new ChromeDriver();
+				break;
+			case "edge":
+				System.out.println("Edge Driver....");
+				WebDriverManager.edgedriver().setup();
+				driver = new EdgeDriver();
+				break;
+			}
 			break;
-		case "chrome":
-			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
-			break;
-		case "edge":
-			System.out.println("Edge Driver....");
-			WebDriverManager.edgedriver().setup();
-			driver = new EdgeDriver();
+		case "sauce":
+			switch (browser) {
+			case "firefox":
+
+				break;
+			case "chrome":
+
+				break;
+			case "edge":
+
+				break;
+			}
 			break;
 		}
 

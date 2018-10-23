@@ -12,6 +12,12 @@ import cucumber.api.java.en.When;
 import pageObject.LoginPage;
 import services.UserService;
 
+/**
+ * 
+ * @author Jim Bonica
+ *
+ *         Oct 22, 2018
+ */
 @Scope("cucumber-glue")
 public class UserSteps {
 
@@ -20,10 +26,10 @@ public class UserSteps {
 
 	@Autowired
 	LoginPage loginPage;
-	
+
 	@Autowired
 	ScenarioSession scenarioSession;
-	
+
 	@Autowired
 	CrossScenarioCache crossScenarioCache;
 
@@ -38,8 +44,7 @@ public class UserSteps {
 		assertThat(loginPage.getLoginErrorMessage()).isEqualTo(errorMessage);
 		scenarioSession.takeScreenShot();
 		scenarioSession.writeToReport("This has been productive!!!!!!");
-		
-	
+
 	}
 
 }

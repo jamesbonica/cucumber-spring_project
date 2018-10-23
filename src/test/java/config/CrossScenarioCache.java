@@ -4,11 +4,16 @@ import org.springframework.context.annotation.Configuration;
 
 import domain.Study;
 
+/**
+ * 
+ * @author Jim Bonica
+ *
+ * Oct 22, 2018
+ */
 @Configuration
 public class CrossScenarioCache {
 
 	private Study mainStudy;
-	private String rootApiKey;
 
 	public Study getMainStudy() {
 		return mainStudy;
@@ -17,13 +22,5 @@ public class CrossScenarioCache {
 	public void setMainStudy(Study mainStudy) {
 		this.mainStudy = mainStudy;
 	}
-
-	public String getRootApiKey() {
-		return rootApiKey;
-	}
-
-	public void setRootApiKey(String rootApiKey) {
-		this.rootApiKey = rootApiKey;
-	}
-
+	
 }

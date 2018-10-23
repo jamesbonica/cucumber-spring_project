@@ -1,6 +1,7 @@
 package services;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
 import org.apache.http.client.HttpClient;
@@ -13,14 +14,23 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import static constants.Constants.STANDARD_PASSWORD;
 import static constants.Constants.GET_API_KEY;
+import static constants.Constants.CREATE_USER;
 
 import java.io.IOException;
+import java.util.Base64;
 
 import org.springframework.stereotype.Service;
 
 import config.CrossScenarioCache;
 import config.PropertiesLoader;
 import pageObject.LoginPage;
+
+/**
+ * 
+ * @author Jim Bonica
+ *
+ * Oct 22, 2018
+ */
 
 @Service
 public class ApiService {
@@ -30,11 +40,14 @@ public class ApiService {
 
 	@Autowired
 	PropertiesLoader propertiesLoader;
-	
+
 	@Autowired
 	CrossScenarioCache crossScenarioCache;
 
-	public void getApiKey(String username) {
+	@Autowired
+	UserService userService;
+
+	public String getApiKey(String username) {
 		String content = null;
 
 		String payload = "{\"username\":\"" + username + "\",\"" + STANDARD_PASSWORD + "\": \"password\"}";
@@ -61,9 +74,51 @@ public class ApiService {
 		JSONObject myObject = new JSONObject(content);
 
 		String value = myObject.getString("apiKey");
-		
-		// set the API Key in the crossScenarioCache
-		crossScenarioCache.setRootApiKey(value);
+		System.out.println("========================= " + value);
+
+		return value;
+	}
+
+	public String createUser(String user) {
+		String apiKey = getApiKey(user);
+
+		String payload = "{" +
+				"\"username\": \"testingUser2\"," + 
+				"\"fName\": \"Jimmy\",\"lName\": \"Sander\"," + 
+				"\"institution\": \"OC\"," + 
+				"\"email\": \"abcde@yahoo.com\"," + 
+				"\"study_name\": \"Default Study\"," + 
+				"\"role_name\": \"Data Manager\"," +
+				"\"user_type\": \"user\"," + 
+				"\"authorize_soap\":\"false\"" + 
+				"}";
+
+		HttpPost request = new HttpPost(propertiesLoader.getOcUrl() + CREATE_USER);
+		String authHeader = "Basic " + Base64.getEncoder().encodeToString((apiKey + ":").getBytes());
+
+		StringEntity entity = new StringEntity(payload, ContentType.APPLICATION_JSON);
+
+		HttpClient httpClient = HttpClientBuilder.create().build();
+			
+		request.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
+		request.setHeader("Accept", "application/json");
+		request.setHeader("Content-type", "application/json");
+		request.setHeader("api_key", apiKey);
+
+	//	 System.out.println("]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]] " +	 Base64.getEncoder().encodeToString(apiKey.getBytes()));
+
+		request.setEntity(entity);
+
+		HttpResponse response = null;
+		try {
+			response = httpClient.execute(request);
+		} catch (IOException e) {
+
+		}
+
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + response.getStatusLine().getStatusCode());
+
+		return null;
 	}
 
 }

@@ -9,6 +9,7 @@ import cucumber.api.java.en.Given;
 import pageObject.LoginPage;
 import services.ApiService;
 import services.UserService;
+import static constants.Constants.STANDARD_PASSWORD;
 
 @Scope("cucumber-glue")
 public class ApiSteps {
@@ -35,7 +36,7 @@ public class ApiSteps {
 
 	@Given("^the OC root user retrieve the API Key via an API$")
 	public void the_OC_root_user_retrieve_her_API_Key_via_an_API() throws Exception {
-		apiService.getApiKey("root");
+		apiService.createUser("root");
 	}
 
 	@Given("^the OC root user creates a study via an API$")
