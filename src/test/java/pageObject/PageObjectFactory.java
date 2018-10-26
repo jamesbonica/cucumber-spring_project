@@ -13,4 +13,12 @@ public class PageObjectFactory {
 	public LoginPage getLoginPage() {
 		return (LoginPage) appContext.getBean("loginPage");
 	}
+
+	public ResetPasswordPage getResetPasswordPAge() {
+		return (ResetPasswordPage) appContext.getBean("resetPasswordPage");
+	}
+
+	public MenuPage getMenuPage() {
+		return (MenuPage) appContext.getBean("menuPage");
+	}
 }

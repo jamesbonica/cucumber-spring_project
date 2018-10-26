@@ -10,13 +10,13 @@ import config.ScenarioSession;
 import cucumber.api.java.en.Given;
 import domain.Study;
 import pageObject.LoginPage;
-import services.UserService;
+import services.LoginService;
 
 @Scope("cucumber-glue")
 public class StudySteps {
 
 	@Autowired
-	UserService userService;
+	LoginService userService;
 
 	@Autowired
 	LoginPage loginPage;
@@ -30,7 +30,7 @@ public class StudySteps {
 	@Given("^there is a study that uses the following variables:$")
 	public void there_is_a_study_that_uses_the_following_variables(List<Study> studies) throws Exception {
 		for(Study study: studies) {
-			Study mainStudy = new Study(study.getStudyName(), study.getStudyManager(), study.getStudyOid());
+			Study mainStudy = new Study(study.getStudyId(), study.getStudyName(), study.getStudyManager(), study.getStudyOid());
 			crossScenarioCache.setMainStudy(mainStudy);
 		}
 	}

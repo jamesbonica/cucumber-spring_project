@@ -1,6 +1,8 @@
 package pageObject;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -30,8 +32,12 @@ public class AbstractPage {
 	}
 
 	public AbstractPage waitForElement(WebElement element) {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		try {
+		WebDriverWait wait = new WebDriverWait(driver, 6);
 		wait.until(ExpectedConditions.elementToBeClickable(element));
+			} catch(TimeoutException t) {
+			System.out.println("element not found");
+		}
 		return this;
 	}
 

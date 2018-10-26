@@ -17,5 +17,6 @@ public final class Constants {
 	// REST API
 	public static String GET_API_KEY = "pages/accounts/login";
 	public static String CREATE_USER = "pages/auth/api/v1/createuseraccount";
+	public static String CREATE_A_STUDY = "pages/auth/api/v1/studies/";
 	public static String LOGIN = "pages/login/login";
 }

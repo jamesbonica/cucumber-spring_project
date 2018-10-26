@@ -12,24 +12,27 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import static constants.Constants.STANDARD_PASSWORD;
 import static constants.Constants.GET_API_KEY;
 import static constants.Constants.CREATE_USER;
+import static constants.Constants.CREATE_A_STUDY;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.HashMap;
 
 import org.springframework.stereotype.Service;
 
 import config.CrossScenarioCache;
 import config.PropertiesLoader;
+import domain.Study;
+import dto.UserDTO;
 import pageObject.LoginPage;
 
 /**
  * 
  * @author Jim Bonica
  *
- * Oct 22, 2018
+ *         Oct 22, 2018
  */
 
 @Service
@@ -45,12 +48,46 @@ public class ApiService {
 	CrossScenarioCache crossScenarioCache;
 
 	@Autowired
-	UserService userService;
+	LoginService loginService;
 
-	public String getApiKey(String username) {
+	@Autowired
+	HelperService helperService;
+
+	//////////////// API Helper methods to prevent duplicate code
+	//////////////// /////////////////////////////
+
+	public JSONObject getJSONObjectFromResponse(HttpResponse response) {
 		String content = null;
+		// convert response to String then to JSON Object for parsing
+		HttpEntity resultsEntity = response.getEntity();
+		try {
+			content = EntityUtils.toString(resultsEntity);
+		} catch (ParseException | IOException e1) {
+		}
 
-		String payload = "{\"username\":\"" + username + "\",\"" + STANDARD_PASSWORD + "\": \"password\"}";
+		JSONObject myObject = new JSONObject(content);
+		return myObject;
+	}
+
+	public HttpPost setHeaderInRequest(String api, String apiKey, String payload) {
+		HttpPost request = new HttpPost(propertiesLoader.getOcUrl() + api);
+		String authHeader = "Basic " + Base64.getEncoder().encodeToString((apiKey + ":").getBytes());
+
+		request.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
+		request.setHeader("Accept", "application/json");
+		request.setHeader("Content-type", "application/json");
+
+		return request;
+	}
+
+	///////////////// actual API Methods /////////////////////////////////////////
+
+	public HashMap<String, Object> getUserAccountApi(String username, String password) {
+		HashMap<String, Object> userAccountApiResultsMap = new HashMap<String, Object>();
+		String apiKey = null;
+		Integer httpResponse = null;
+
+		String payload = "{\"username\":\"" + username + "\",\"" + password + "\": \"password\"}";
 
 		StringEntity entity = new StringEntity(payload, ContentType.APPLICATION_JSON);
 
@@ -64,48 +101,51 @@ public class ApiService {
 		} catch (IOException e) {
 
 		}
-		// convert response to String then to JSON Object for parsing
-		HttpEntity resultsEntity = response.getEntity();
-		try {
-			content = EntityUtils.toString(resultsEntity);
-		} catch (ParseException | IOException e1) {
+
+		JSONObject myObject = getJSONObjectFromResponse(response);
+
+		// Get values from response
+		httpResponse = response.getStatusLine().getStatusCode();
+		if (httpResponse == 200) {
+			apiKey = myObject.getString("apiKey");
 		}
 
-		JSONObject myObject = new JSONObject(content);
+		// Add values to HashMap
+		userAccountApiResultsMap.put("httpResponse", httpResponse);
+		userAccountApiResultsMap.put("apiKey", apiKey);
 
-		String value = myObject.getString("apiKey");
-		System.out.println("========================= " + value);
-
-		return value;
+		return userAccountApiResultsMap;
 	}
 
-	public String createUser(String user) {
-		String apiKey = getApiKey(user);
+	public HashMap<String, Object> createUser(String user, String password, UserDTO userDTO) {
+		HashMap<String, Object> createUserApiResultsMap = new HashMap<String, Object>();
+		Integer httpResponse = null;
+		String tempPassword = null;
+		
+		HashMap<String, Object> userAccountApiResultsMap = getUserAccountApi(user, password);
 
-		String payload = "{" +
-				"\"username\": \"testingUser2\"," + 
-				"\"fName\": \"Jimmy\",\"lName\": \"Sander\"," + 
-				"\"institution\": \"OC\"," + 
-				"\"email\": \"abcde@yahoo.com\"," + 
-				"\"study_name\": \"Default Study\"," + 
-				"\"role_name\": \"Data Manager\"," +
-				"\"user_type\": \"user\"," + 
-				"\"authorize_soap\":\"false\"" + 
-				"}";
+		String apiKey = (String) userAccountApiResultsMap.get("apiKey");
 
-		HttpPost request = new HttpPost(propertiesLoader.getOcUrl() + CREATE_USER);
-		String authHeader = "Basic " + Base64.getEncoder().encodeToString((apiKey + ":").getBytes());
+		// if apiKey is null, throw an exception now
+		if (apiKey == null) {
+			try {
+				throw new Exception("API Key is null. Get User Account API failed. Incorrect user or bad password?");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		String payload = "{" + "\"username\": \"" + userDTO.getUsername() + "\"," + "\"fName\": \"" + userDTO.getFName()
+				+ "\",\"lName\": \"" + userDTO.getLName() + "\"," + "\"institution\": \"" + userDTO.getInstitution()
+				+ "\"," + "\"email\": \"" + userDTO.getEmail() + "\"," + "\"study_name\": \"" + userDTO.getStudy_name()
+				+ "\"," + "\"role_name\": \"" + userDTO.getRole_name() + "\"," + "\"user_type\": \""
+				+ userDTO.getUser_type() + "\"," + "\"authorize_soap\":\"" + userDTO.getAuthorize_soap() + "\"" + "}";
+
+		HttpPost request = setHeaderInRequest(CREATE_USER, apiKey, payload);
 
 		StringEntity entity = new StringEntity(payload, ContentType.APPLICATION_JSON);
 
 		HttpClient httpClient = HttpClientBuilder.create().build();
-			
-		request.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
-		request.setHeader("Accept", "application/json");
-		request.setHeader("Content-type", "application/json");
-		request.setHeader("api_key", apiKey);
-
-	//	 System.out.println("]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]] " +	 Base64.getEncoder().encodeToString(apiKey.getBytes()));
 
 		request.setEntity(entity);
 
@@ -116,9 +156,77 @@ public class ApiService {
 
 		}
 
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + response.getStatusLine().getStatusCode());
+		JSONObject myObject = getJSONObjectFromResponse(response);
 
-		return null;
+		// Get server code from response
+		httpResponse = response.getStatusLine().getStatusCode();
+		// Add values to HashMap
+		createUserApiResultsMap.put("httpResponse", httpResponse);
+
+		if (httpResponse == 200) {
+			tempPassword = myObject.getString("password");
+			// Add it to HashMap
+			createUserApiResultsMap.put("tempPassword", tempPassword);
+		}
+
+		return createUserApiResultsMap;
+	}
+
+	public HashMap<String, Object> createStudy(String user, String password, Study study) throws Exception {
+		HashMap<String, Object> createStudyApiResultsMap = new HashMap<String, Object>();
+		String message = null;
+		Integer httpResponse = null;
+
+		HashMap<String, Object> userAccountApiResultsMap = getUserAccountApi(user, password);
+
+		String apiKey = (String) userAccountApiResultsMap.get("apiKey");
+
+		// if apiKey is null, throw an exception now
+		if (apiKey == null) {
+			throw new Exception("API Key is null. Get User Account API failed. Incorrect user or bad password?");
+		}
+
+		String payload = "{" + "\"briefTitle\": \"" + study.getStudyName() + "\"," + "\"principalInvestigator\": \""
+				+ study.getPrincipalInvestigator() + "\"," + "\"expectedTotalEnrollment\": \"" + study.getEnrollment()
+				+ "\"," + "\"sponsor\": \"" + study.getSponsor() + "\"," + "\"protocolType\": \""
+				+ study.getProtocolType() + "\"," + "\"status\": \"" + study.getStatus() + "\","
+				+ "\"assignUserRoles\": [" + study.assignUserRolesString() + "]," + "\"uniqueProtocolID\": \""
+				+ study.getStudyId() + "\"," + "\"briefSummary\": \"" + study.getBriefSummary() + "\","
+				+ "\"startDate\": \"" + helperService.getStudyDate(study.getStartDate()) + "\"" + "}";
+
+		HttpPost request = setHeaderInRequest(CREATE_A_STUDY, apiKey, payload);
+
+		StringEntity entity = new StringEntity(payload, ContentType.APPLICATION_JSON);
+
+		HttpClient httpClient = HttpClientBuilder.create().build();
+
+		request.setEntity(entity);
+
+		HttpResponse response = null;
+		try {
+			response = httpClient.execute(request);
+		} catch (IOException e) {
+
+		}
+
+		// Get server code from response
+		httpResponse = response.getStatusLine().getStatusCode();
+
+		JSONObject myObject = getJSONObjectFromResponse(response);
+
+		// Get values from response
+		message = myObject.getString("message");
+
+		// Add values to HashMap
+		createStudyApiResultsMap.put("httpResponse", httpResponse);
+		createStudyApiResultsMap.put("message", message);
+
+		System.out.println("Create Study Response:");
+		createStudyApiResultsMap.forEach((k, v) -> {
+			System.out.println(k + " [" + v + "]");
+		});
+
+		return createStudyApiResultsMap;
 	}
 
 }

@@ -10,7 +10,7 @@ import config.ScenarioSession;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pageObject.LoginPage;
-import services.UserService;
+import services.LoginService;
 
 /**
  * 
@@ -22,7 +22,7 @@ import services.UserService;
 public class UserSteps {
 
 	@Autowired
-	UserService userService;
+	LoginService userService;
 
 	@Autowired
 	LoginPage loginPage;

@@ -1,27 +1,45 @@
 package services;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import static constants.Constants.STANDARD_PASSWORD;
 
+import dto.UserDTO;
 import pageObject.LoginPage;
+import pageObject.MenuPage;
 
-/**
- * 
- * @author Jim Bonica
- *
- *         Oct 22, 2018
- */
 @Service
 public class UserService {
 
 	@Autowired
-	LoginPage loginPage;
+	MenuPage menuPage;
 
-	public void loginToOcApp(String username, String password) {
-		loginPage.navigateToWebApp();
+	@Autowired
+	ApiService apiService;
 
-		loginPage.enterUsername(username).enterPassword(password);
-		loginPage.clickLoginButton();
+	@Autowired
+	LoginService loginService;
+
+	public void initializeRootUser() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void createUserViaApiAndSetPassword(String user, String password, UserDTO userDTO) {
+		String tempPassword = null;
+
+		HashMap<String, Object> createUserViaApiResultsMap = apiService.createUser(user, password, userDTO);
+
+		Integer httpResponse = (Integer) createUserViaApiResultsMap.get("httpResponse");
+
+		if (httpResponse == 200) {
+			tempPassword = (String) createUserViaApiResultsMap.get("tempPassword");
+			loginService.loginToOcApp(userDTO.getUsername(), tempPassword);
+			loginService.setNewPassword(tempPassword, STANDARD_PASSWORD);
+			menuPage.clickLogOutLink();
+		}
 
 	}
 

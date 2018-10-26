@@ -5,15 +5,21 @@ Feature: User Authentication
   @Initialize
   Scenario: Initialize host domain for testing
     Given there is a study that uses the following variables:
-      | studyName                            | studyManager | studyOid   |
-      | Study 1001: User Authentication Test | 01_manager   | S_01_AUTOM |
+      | studyId       | studyName                            | studyOid   |
+      | 01_Automation | Study 1001: User Authentication Test | S_04_AUTOM |
 
   @Scenario=test
-  Scenario: Root user executes API
- #   Given the OC root user is initialized
-    * the OC root user retrieve the API Key via an API
-#    * the OC root user creates a study via an API
+  Scenario: Create Base State
+    Given the OC Root User generates an API Key
 
+  #   * the OC Root User creates a study via REST API
+  #  * the OC Root User creates the following users via REST API
+  #    | username | fName    | lName     | email         | study_name                           | role_name         | user_type               |
+  #    | 01_ds1   | Donnie   | Smacko    | test@test.com | Study 1001: User Authentication Test | Data Specialist   | user                    |
+  #    | 01_ds2   | Dora     | Satchmo   | test@test.com | Study 1001: User Authentication Test | Data Specialist   | user                    |
+  #    | 01_dm1   | Dandy    | Mentallo  | test@test.com | Study 1001: User Authentication Test | Data Manager      | business administrator  |
+  #    | 01_dep1  | Dingy    | Pantalone | test@test.com | Study 1001: User Authentication Test | Data Entry Person | business administrator  |
+  #    | 01_sd1   | Symbiote | Didactic  | test@test.com | Study 1001: User Authentication Test | Study Director    | technical administrator |
   @Scenario=1 @OC-1001
   Scenario Outline: OpenClinica shows an error message when a user enters invalid credentials
     When a user attempts to login using username "<username>"  with password "<password>"
