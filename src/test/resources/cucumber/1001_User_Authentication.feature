@@ -1,5 +1,5 @@
 #Author: James S. Bonica
-Feature: User Authentication
+Feature: 1001 User Authentication
   Description: As a study administrator, I want OC to accept only valid login credentials from authorized users
 
   @Initialize
@@ -20,7 +20,8 @@ Feature: User Authentication
   #    | 01_dm1   | Dandy    | Mentallo  | test@test.com | Study 1001: User Authentication Test | Data Manager      | business administrator  |
   #    | 01_dep1  | Dingy    | Pantalone | test@test.com | Study 1001: User Authentication Test | Data Entry Person | business administrator  |
   #    | 01_sd1   | Symbiote | Didactic  | test@test.com | Study 1001: User Authentication Test | Study Director    | technical administrator |
-  @Scenario=1 @OC-1001
+ # @Scenario=1 
+  @OC-1001
   Scenario Outline: OpenClinica shows an error message when a user enters invalid credentials
     When a user attempts to login using username "<username>"  with password "<password>"
     Then OC must return the error message
@@ -32,4 +33,12 @@ Feature: User Authentication
       | username | password |
       | root     | wrong    |
       |          | password |
-      | root     | password |
+      
+  # @Scenario=2
+  @OC-1001
+  Scenario: OpenClinica shows an error message when a user enters invalid username
+    When a user attempts to login using username "boot"  with password "password"
+    Then OC must return the error message
+      """
+      Your User Name and Password! combination could not be found. Please try again. If you continue to have trouble, please click "Forgot Password" or contact the Administrator.
+      """
