@@ -32,3 +32,4 @@ Feature: User Authentication
       | username | password |
       | root     | wrong    |
       |          | password |
+      | root     | password |
