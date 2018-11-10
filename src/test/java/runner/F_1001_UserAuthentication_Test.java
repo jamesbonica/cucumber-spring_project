@@ -6,7 +6,7 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		tags = {"@Initialize, @Scenario=1"},
+		tags = {"@Initialize or @Scenario=1"},
 		plugin = { "pretty", "html:target/html/1001_User_Authentication/", 
 				"json:target/json/1001_User_Authentication.json" }, 
 		features = {"src/test/resources/cucumber/1001_User_Authentication.feature" }, 

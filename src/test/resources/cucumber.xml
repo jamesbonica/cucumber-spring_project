@@ -7,7 +7,7 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	 <beans profile="qe-4x, jbonica, jmcinerney, hhonshuku, qe-aws, zique"> 
+	 <beans profile="qe-4x, jbonica, regressions"> 
 	
 
 	   <import resource="classpath:cucumber-glue.xml" />
