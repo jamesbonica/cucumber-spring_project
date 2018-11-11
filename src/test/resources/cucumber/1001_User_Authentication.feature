@@ -40,5 +40,5 @@ Feature: 1001 User Authentication
     When a user attempts to login using username "boot"  with password "password"
     Then OC must return the error message
       """
-      Your User Name and Password! combination could not be found. Please try again. If you continue to have trouble, please click "Forgot Password" or contact the Administrator.
+      Your User Name and Password!! combination could not be found. Please try again. If you continue to have trouble, please click "Forgot Password" or contact the Administrator.
       """
