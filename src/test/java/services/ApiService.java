@@ -22,11 +22,12 @@ import java.util.HashMap;
 
 import org.springframework.stereotype.Service;
 
+import com.oc.pageObject.LoginPage;
+
 import config.CrossScenarioCache;
 import config.PropertiesLoader;
 import domain.Study;
 import dto.UserDTO;
-import pageObject.LoginPage;
 
 /**
  * 
@@ -70,7 +71,7 @@ public class ApiService {
 	}
 
 	public HttpPost setHeaderInRequest(String api, String apiKey, String payload) {
-		HttpPost request = new HttpPost(propertiesLoader.getOcUrl() + api);
+		HttpPost request = new HttpPost(propertiesLoader.getTestUrl() + api);
 		String authHeader = "Basic " + Base64.getEncoder().encodeToString((apiKey + ":").getBytes());
 
 		request.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
@@ -92,7 +93,7 @@ public class ApiService {
 		StringEntity entity = new StringEntity(payload, ContentType.APPLICATION_JSON);
 
 		HttpClient httpClient = HttpClientBuilder.create().build();
-		HttpPost request = new HttpPost(propertiesLoader.getOcUrl() + GET_API_KEY);
+		HttpPost request = new HttpPost(propertiesLoader.getTestUrl() + GET_API_KEY);
 		request.setEntity(entity);
 
 		HttpResponse response = null;
