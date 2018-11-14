@@ -5,11 +5,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
+import com.oc.pageObject.LoginPage;
+
 import config.CrossScenarioCache;
 import config.ScenarioSession;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import pageObject.LoginPage;
 import services.LoginService;
 
 /**

@@ -9,11 +9,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
+import com.oc.pageObject.LoginPage;
+
 import config.CrossScenarioCache;
 import config.ScenarioSession;
 import cucumber.api.java.en.Given;
 import domain.Study;
-import pageObject.LoginPage;
 import services.LoginService;
 
 @Scope("cucumber-glue")

@@ -3,8 +3,8 @@ package services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pageObject.LoginPage;
-import pageObject.ResetPasswordPage;
+import com.oc.pageObject.LoginPage;
+import com.oc.pageObject.ResetPasswordPage;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package pageObject;
+package com.oc.pageObject;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
@@ -19,7 +19,7 @@ public class AbstractPage {
 	PropertiesLoader propertiesLoader;
 
 	public AbstractPage navigateToWebApp() {
-		driver.navigate().to(propertiesLoader.getOcUrl());
+		driver.navigate().to(propertiesLoader.getTestUrl());
 		return this;
 	}
 

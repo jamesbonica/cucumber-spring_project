@@ -1,4 +1,4 @@
-package pageObject;
+package com.bol.pageObject;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,8 +7,11 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.oc.pageObject.AbstractPage;
+import com.oc.pageObject.PageObjectFactory;
+
 @Component
-public class MenuPage extends AbstractPage {
+public class HomePage extends AbstractPage {
 
 	@Autowired
 	EventFiringWebDriver driver;
@@ -16,18 +19,10 @@ public class MenuPage extends AbstractPage {
 	@Autowired
 	PageObjectFactory pageObjectFactory;
 
-	@FindBy(xpath = "(//div[@id = 'UserInfo'])/a[2]")
-	private WebElement logOutLink;
-
-	public MenuPage(EventFiringWebDriver driver) {
+	public HomePage(EventFiringWebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 
-	public LoginPage clickLogOutLink() {
-		waitForElement(logOutLink);
-		logOutLink.click();
-		return pageObjectFactory.getLoginPage();
-	}
-
+	
 }

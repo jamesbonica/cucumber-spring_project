@@ -4,11 +4,13 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.oc.pageObject.LoginPage;
+import com.oc.pageObject.MenuPage;
+
 import static constants.Constants.STANDARD_PASSWORD;
 
 import dto.UserDTO;
-import pageObject.LoginPage;
-import pageObject.MenuPage;
 
 @Service
 public class UserService {

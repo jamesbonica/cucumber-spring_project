@@ -8,8 +8,8 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:application-${spring.profiles.active}.properties")
 public class PropertiesLoader {
 
-	@Value("${oc.url}")
-	private String ocUrl;
+	@Value("${test.url}")
+	private String testUrl;
 	
 	@Value("${test.environment}")
 	private String testEnvironment;
@@ -17,12 +17,20 @@ public class PropertiesLoader {
 	@Value("${test.browser}")
 	private String browser;
 
-	public String getOcUrl() {
-		return ocUrl;
+	@Value("${james.email}")
+	private String jamesEmail;
+
+	
+	@Value("${james.password}")
+	private String jamesPassword;
+
+	
+	public String getTestUrl() {
+		return testUrl;
 	}
 
-	public void setOcUrl(String ocUrl) {
-		this.ocUrl = ocUrl;
+	public void setTestUrl(String testUrl) {
+		this.testUrl = testUrl;
 	}
 
 	public String getTestEnvironment() {
@@ -40,5 +48,20 @@ public class PropertiesLoader {
 	public void setBrowser(String browser) {
 		this.browser = browser;
 	}
+	
+	public String getJamesEmail() {
+		return jamesEmail;
+	}
 
+	public void setJamesEmail(String jamesEmail) {
+		this.jamesEmail = jamesEmail;
+	}
+	
+	public String getJamesPassword() {
+		return jamesPassword;
+	}
+
+	public void setJamesPassword(String jamesPassword) {
+		this.jamesPassword = jamesPassword;
+	}
 }
