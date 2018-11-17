@@ -19,20 +19,14 @@ public class AccountService {
 
 	@Autowired
 	HomePage homePage;
-	
+
 	@Autowired
 	TopNavigationPage topNavigationPage;
 
 	public void loginToExistingAccount() {
 		homePage.navigateToWebApp();
 		topNavigationPage.clickAccountLogin().enterEmailAddress("jamesbonica@gmail.com").enterPassword("Cucumber#1");
-		
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 	}
 
 }
