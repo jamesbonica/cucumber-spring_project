@@ -1,9 +1,13 @@
 package config;
 
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -27,6 +31,9 @@ public class DriverBean {
 		WebDriver driver = null;
 		String browser = propertiesLoader.getBrowser().toLowerCase();
 		String testEnvironment = propertiesLoader.getTestEnvironment().toLowerCase();
+		
+		ChromeOptions chromeOptions = new ChromeOptions();
+		FirefoxOptions firefoxOptions = new FirefoxOptions();
 
 		switch (testEnvironment) {
 		case "local":
@@ -35,11 +42,13 @@ public class DriverBean {
 				WebDriverManager.firefoxdriver().setup();
 				System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "true");
 				System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
-				driver = new FirefoxDriver();
+				driver = new FirefoxDriver(firefoxOptions);
 				break;
 			case "chrome":
 				WebDriverManager.chromedriver().setup();
-				driver = new ChromeDriver();
+			//	chromeOptions.
+				driver = new ChromeDriver(chromeOptions);
+				
 				break;
 			case "edge":
 				System.out.println("Edge Driver....");
@@ -66,8 +75,10 @@ public class DriverBean {
 		if (driver == null) {
 			throw new Exception("Invalid driver entry in properties file");
 		}
-
+		
 		evetFiringWebDriver = new EventFiringWebDriver(driver);
+		Capabilities caps = evetFiringWebDriver.getCapabilities();
+		System.out.println("Browser + version: "  + caps.getBrowserName() + " " + caps.getVersion());
 		return evetFiringWebDriver;
 	}
 

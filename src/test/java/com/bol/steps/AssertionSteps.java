@@ -29,7 +29,7 @@ public class AssertionSteps {
 	@Autowired
 	ScenarioSession scenarioSession;
 
-	@Then("^the system must display following message:$")
+	@Then("^the system must display the following message:$")
 	public void the_system_must_display_following_message(String expectedResponse) throws Exception {
 		assertThat(productPage.getShoppingCartFreeDeliveryAlert()).isEqualTo(expectedResponse);
 		scenarioSession.takeScreenShot();

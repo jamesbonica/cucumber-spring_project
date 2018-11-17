@@ -12,6 +12,6 @@ import cucumber.api.junit.Cucumber;
 		features = {"src/test/resources/cucumber/1001_User_Authentication.feature" }, 
 		glue = {"steps" }, 
 		monochrome = true)
-public class F_1001_UserAuthentication_Experiment {
+public class F_1001_UserAuthentication_Test {
 
 }
