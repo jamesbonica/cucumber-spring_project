@@ -35,7 +35,7 @@ Feature: 1002 User Authentication Second
       |          | password |
       
   # @Scenario=2
-  @OC-1001
+  @OC-1001 @End_Feature_File
   Scenario: OpenClinica shows an error message when a user enters invalid username
     When a user attempts to login using username "boot"  with password "password"
     Then OC must return the error message
