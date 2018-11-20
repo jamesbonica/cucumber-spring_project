@@ -60,7 +60,12 @@ public class Hooks {
 			final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 			scenario.embed(screenshot, "image/png"); // stick it in the report
 		}
-		// driver.close();
+		 
+	}
+	
+	@After("@End_Feature_File")
+	public void closeOut() {
+		driver.quit();
 	}
 
 }

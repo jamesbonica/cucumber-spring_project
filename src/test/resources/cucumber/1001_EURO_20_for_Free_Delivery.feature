@@ -17,7 +17,7 @@ Feature: 1001 EURO 20 for Free Delivery
       """
 
   #@Scenario=2
-  @Over_EURO_20
+  @Over_EURO_20 @End_Feature_File
   Scenario: System display a free delivery charge message when a shopper clicks to add over EURO 20 in merchandise to cart
     Given a shopper searches for the "Tolkien Calendar" in the top search bar
     * a shopper increases the quantity of the item to 3
