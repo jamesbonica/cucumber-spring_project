@@ -36,7 +36,6 @@ public class DriverBean {
 		WebDriver driver = null;
 		String browser = propertiesLoader.getBrowser().toLowerCase();
 		String testEnvironment = propertiesLoader.getTestEnvironment().toLowerCase();
-
 		ChromeOptions chromeOptions = new ChromeOptions();
 		FirefoxOptions firefoxOptions = new FirefoxOptions();
 
@@ -46,6 +45,7 @@ public class DriverBean {
 		case "local":
 			switch (browser) {
 			case "firefox":
+				System.out.println("Creating firefox local... ");
 				WebDriverManager.firefoxdriver().setup();
 				System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "true");
 				System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
@@ -74,7 +74,8 @@ public class DriverBean {
 				desiredCapbilities.setCapability(FirefoxDriver.PROFILE, profile);
 				break;
 			case "chrome":
-
+				sauceName = "chrome test";
+				desiredCapbilities = DesiredCapabilities.chrome();
 				break;
 			case "edge":
 

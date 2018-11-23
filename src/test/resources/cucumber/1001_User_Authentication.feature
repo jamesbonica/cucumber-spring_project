@@ -6,7 +6,7 @@ Feature: 1001 User Authentication
   Scenario: Initialize host domain for testing
     Given there is a study that uses the following variables:
       | studyId       | studyName                            | studyOid   |
-      | 01_Automation | Study 1001: User Authentication Test | S_04_AUTOM |
+      | 02_Automation | Study 1002: User Authentication Test | S_02_AUTOM |
 
   @Scenario=test
   Scenario: Create Base State

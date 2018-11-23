@@ -2,6 +2,7 @@ package com.bol.pageObject;
 
 import java.util.List;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -22,7 +23,7 @@ public class ProductPage extends AbstractPage {
 	@Autowired
 	BolPageObjectFactory bolPageObjectFactory;
 
-	@FindBy(xpath="//a[contains(@class, 'js_floating_basket_btn')]")
+	@FindBy(xpath="//div[@class='h-bottom--xs']/descendant::a[contains(@class, 'js_floating_basket_btn') and @data-button-type ='add_to_basket']")
 	private WebElement buyButton;
 	
 	@FindBy(xpath="//div[contains(@class, 'basket-popup js_narrow_modal_window')]/p[@data-test='add-to-card-closeness']")
@@ -38,6 +39,7 @@ public class ProductPage extends AbstractPage {
 	
 	public ProductPage clickBuyButton() {
 		waitForElement(buyButton);
+	//	pause(5);
 		buyButton.click();
 		return this;
 	}
@@ -55,13 +57,14 @@ public class ProductPage extends AbstractPage {
 		Select quantitySelect = new Select(quantityDropdown);
 		List<WebElement> options = quantitySelect.getOptions();
 		quantityDropdown.click();
-		
+		pause(.5);
 		for(WebElement element: options) {
 			if(element.getText().trim().equals(string)) {
 				element.click();
 				break;
 			}
 		}
+	//	quantityDropdown.click();
 		return this;
 		
 	}

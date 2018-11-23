@@ -93,6 +93,7 @@ public class ApiService {
 		StringEntity entity = new StringEntity(payload, ContentType.APPLICATION_JSON);
 
 		HttpClient httpClient = HttpClientBuilder.create().build();
+
 		HttpPost request = new HttpPost(propertiesLoader.getTestUrl() + GET_API_KEY);
 		request.setEntity(entity);
 
@@ -122,7 +123,7 @@ public class ApiService {
 		HashMap<String, Object> createUserApiResultsMap = new HashMap<String, Object>();
 		Integer httpResponse = null;
 		String tempPassword = null;
-		
+
 		HashMap<String, Object> userAccountApiResultsMap = getUserAccountApi(user, password);
 
 		String apiKey = (String) userAccountApiResultsMap.get("apiKey");

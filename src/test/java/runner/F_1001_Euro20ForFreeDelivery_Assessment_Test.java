@@ -12,6 +12,6 @@ import cucumber.api.junit.Cucumber;
 		features = {"src/test/resources/cucumber/1001_EURO_20_for_Free_Delivery.feature" }, 
 		glue = {"steps", "com.bol.steps" }, 
 		monochrome = true)
-public class F_1001_Euro20ForFreeDelivery_Assessment {
+public class F_1001_Euro20ForFreeDelivery_Assessment_Test {
 
 }

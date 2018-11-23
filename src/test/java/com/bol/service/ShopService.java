@@ -37,6 +37,7 @@ public class ShopService {
 	 */
 	public void addItemToShoppingCart() {
 		productPage.clickBuyButton();
+
 	}
 
 	/**
