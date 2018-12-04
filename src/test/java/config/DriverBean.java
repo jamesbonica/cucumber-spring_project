@@ -100,5 +100,5 @@ public class DriverBean {
 		System.out.println("Browser + version: " + caps.getBrowserName() + " " + caps.getVersion());
 		return eventFiringWebDriver;
 	}
-
+	
 }
