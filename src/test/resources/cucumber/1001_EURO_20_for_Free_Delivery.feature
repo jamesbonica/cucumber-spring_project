@@ -9,11 +9,11 @@ Feature: 1001 EURO 20 for Free Delivery
   #@Scenario=1
   @Under_EURO_20
   Scenario: System displays free delivery reminder when a shopper clicks to add an item under EURO 20 to cart
-    Given a shopper searches for the "Tolkien Calendar" in the top search bar
+    Given a shopper searches for the "Frazetta Calendar" in the top search bar
     When a shopper adds the item to the shopping cart
     Then the system must display the following message:
       """
-      Bestel nog voor € 8,01 extra aan artikelen en je bestelling wordt gratis verzonden.
+      Bestel nog voor € 4,01 extra aan artikelen en je bestelling wordt gratis verzonden.
       """
 
   #@Scenario=2
