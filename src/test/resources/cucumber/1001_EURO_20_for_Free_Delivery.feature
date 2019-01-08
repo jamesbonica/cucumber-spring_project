@@ -13,7 +13,7 @@ Feature: 1001 EURO 20 for Free Delivery
     When a shopper adds the item to the shopping cart
     Then the system must display the following message:
       """
-      Bestel nog voor € 4,01 extra aan artikelen en je bestelling wordt gratis verzonden.
+      Bestel nog voor € 6,01 extra aan artikelen en je bestelling wordt gratis verzonden.
       """
 
   #@Scenario=2
