@@ -24,7 +24,7 @@ public class TopNavigationPage extends AbstractPage {
 	@FindBy(xpath="//input[@id='searchfor']")
 	private WebElement searchField;
 	
-	@FindBy(xpath="//input[@data-test='search-button']")
+	@FindBy(xpath="//*[@data-test='search-button']")
 	private WebElement enterSearchButton;
 
 	public TopNavigationPage(EventFiringWebDriver driver) {
