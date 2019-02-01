@@ -120,6 +120,20 @@
 			<artifactId>slf4j-jdk14</artifactId>
 			<version>1.7.25</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>3.3.0</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest -->
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest</artifactId>
+			<version>2.1</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -142,9 +156,7 @@
 				<configuration>
 					<forkCount>2</forkCount>
 					<reuseForks>true</reuseForks>
-				<!-- <includes>
-						<include>**/Parallel*IT.class</include>
-					</includes>-->
+					<!-- <includes> <include>**/Parallel*IT.class</include> </includes> -->
 				</configuration>
 			</plugin>
 		</plugins>

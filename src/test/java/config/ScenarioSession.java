@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import cucumber.api.Scenario;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 
 @Configuration
 @Scope("cucumber-glue")
@@ -17,6 +19,10 @@ public class ScenarioSession {
 	
 	private Scenario scenario;
 	
+	private RequestSpecification request;
+	
+	private Response response;
+	
 	public void setScenario(Scenario scenario) {
 		this.scenario = scenario;
 	}
@@ -25,6 +31,22 @@ public class ScenarioSession {
 		return scenario;
 	}
 	
+	public RequestSpecification getRequest() {
+		return request;
+	}
+
+	public void setRequest(RequestSpecification request) {
+		this.request = request;
+	}
+
+	public Response getResponse() {
+		return response;
+	}
+
+	public void setResponse(Response response) {
+		this.response = response;
+	}
+
 	public void takeScreenShot() {
 		final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 		scenario.embed(screenshot, "image/png"); // stick it in the report

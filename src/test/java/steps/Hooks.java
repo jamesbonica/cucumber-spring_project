@@ -47,11 +47,11 @@ public class Hooks {
 		scenarioSession.setScenario(scenario);
 		driver.manage().deleteAllCookies();
 		System.out.println("In before hook");
-		String[] beans = appContext.getBeanDefinitionNames();
-		Arrays.sort(beans);
-		// for (String bean : beans) {
-		// System.out.println(bean);
-		// }
+	//	String[] beans = appContext.getBeanDefinitionNames();
+	//	Arrays.sort(beans);
+	//	 for (String bean : beans) {
+	//	 System.out.println(bean);
+	//	 }
 	}
 
 	@After
@@ -63,7 +63,7 @@ public class Hooks {
 		 
 	}
 	
-	@After("@End_Feature_File")
+//	@After("@End_Feature_File")
 	public void closeOut() {
 		driver.quit();
 	}

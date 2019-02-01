@@ -14,7 +14,12 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import static constants.Constants.GET_API_KEY;
 import static constants.Constants.CREATE_USER;
+import static constants.Constants.ENDPOINT_GET_BOOK_BY_ISBN;
 import static constants.Constants.CREATE_A_STUDY;
+
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import static io.restassured.RestAssured.given;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -26,6 +31,7 @@ import com.oc.pageObject.LoginPage;
 
 import config.CrossScenarioCache;
 import config.PropertiesLoader;
+import config.ScenarioSession;
 import domain.Study;
 import dto.UserDTO;
 
@@ -53,6 +59,9 @@ public class ApiService {
 
 	@Autowired
 	HelperService helperService;
+
+	@Autowired
+	ScenarioSession scenarioSession;
 
 	//////////////// API Helper methods to prevent duplicate code
 	//////////////// /////////////////////////////
@@ -229,6 +238,16 @@ public class ApiService {
 		});
 
 		return createStudyApiResultsMap;
+	}
+
+	public RequestSpecification prepareOpenGoogleApi(String isbn) {
+		RequestSpecification request = given().param("q", "isbn:" + isbn);
+		return request;
+	}
+
+	public Response executeOpenGoogleApi(RequestSpecification request) {
+		Response response = request.get(ENDPOINT_GET_BOOK_BY_ISBN);
+		return response;
 	}
 
 }

@@ -19,4 +19,5 @@ public final class Constants {
 	public static String CREATE_USER = "pages/auth/api/v1/createuseraccount";
 	public static String CREATE_A_STUDY = "pages/auth/api/v1/studies/";
 	public static String LOGIN = "pages/login/login";
+	public static String ENDPOINT_GET_BOOK_BY_ISBN = "https://www.googleapis.com/books/v1/volumes";
 }
