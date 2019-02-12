@@ -19,7 +19,7 @@ Feature: 1001 EURO 20 for Free Delivery
   #@Scenario=2
   @Over_EURO_20 @End_Feature_File
   Scenario: System display a free delivery charge message when a shopper clicks to add over EURO 20 in merchandise to cart
-    Given a shopper searches for the "Frazetta Calendar" in the top search bar
+    Given a shopper searches for the "Frazetta 16 Month Calendar" in the top search bar
     * a shopper increases the quantity of the item to 3
     When a shopper adds the item to the shopping cart
     Then the system must display the following message:

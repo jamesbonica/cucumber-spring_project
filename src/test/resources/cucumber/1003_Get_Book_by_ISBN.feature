@@ -6,7 +6,7 @@ Feature: 1003 Get Book by ISBN
   						I want to be able to include an ISBN in a REST API
   						So I can return the book title associated with the ISBN
 
-  Scenario: User call web service to get a book by its ISBN
+  Scenario: User calls web service to get a book by its ISBN
     Given a book exists with the ISBN of "9781451648546"
     When a user executes a REST Call by ISBN
     Then the response must return a 200 status code

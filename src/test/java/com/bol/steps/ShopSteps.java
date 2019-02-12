@@ -44,6 +44,7 @@ public class ShopSteps {
 	@When("^a shopper adds the item to the shopping cart$")
 	public void a_shopper_add_the_item_to_the_shopping_cart() throws Exception {
 		shopService.addItemToShoppingCart();
+	
 	}
 
 	@Given("^a shopper increases the quantity of the item to (\\d+)$")

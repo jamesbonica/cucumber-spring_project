@@ -46,6 +46,7 @@ public class ShopService {
 	public void changeQuantityOfItemOnProductPpage(Integer quantity) {
 		
 		productPage.selectQuantity(quantity.toString());
+		
 						
 	}
 
