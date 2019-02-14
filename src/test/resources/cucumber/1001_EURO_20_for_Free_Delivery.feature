@@ -9,7 +9,7 @@ Feature: 1001 EURO 20 for Free Delivery
   #@Scenario=1
   @Under_EURO_20
   Scenario: System displays free delivery reminder when a shopper clicks to add an item under EURO 20 to cart
-    Given a shopper searches for the "Frazetta Calendar" in the top search bar
+    Given a shopper searches for the "Frazetta 16 Month Calendar" in the top search bar
     When a shopper adds the item to the shopping cart
     Then the system must display the following message:
       """
