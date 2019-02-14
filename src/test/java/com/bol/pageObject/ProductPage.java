@@ -23,7 +23,9 @@ public class ProductPage extends AbstractPage {
 	@Autowired
 	BolPageObjectFactory bolPageObjectFactory;
 
-	@FindBy(xpath="//div[@class='h-bottom--xs']/descendant::a[contains(@class, 'js_floating_basket_btn') and @data-button-type ='add_to_basket']")
+//	@FindBy(xpath="//div[@class='h-bottom--xs']/descendant::a[contains(@class, 'js_floating_basket_btn') and @data-button-type ='add_to_basket']")
+	// Converted to CSS Selector
+	@FindBy(css = "div.h-bottom--xs a[class *= 'js_floating_basket_btn'][data-button-type = 'add_to_basket']")
 	private WebElement buyButton;
 	
 	@FindBy(xpath="//div[contains(@class, 'basket-popup js_narrow_modal_window')]/p[@data-test='add-to-card-closeness']")
