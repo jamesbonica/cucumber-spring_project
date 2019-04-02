@@ -26,3 +26,4 @@ Feature: 1001 EURO 20 for Free Delivery
       """
       Bestel nu en je bestelling wordt gratis verzonden!
       """
+     And ttest step uses "this"

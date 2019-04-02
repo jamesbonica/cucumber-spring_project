@@ -9,7 +9,8 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<properties>
-		<io.cucumber.version>2.3.0</io.cucumber.version>
+	<!-- <io.cucumber.version>2.3.0</io.cucumber.version>  -->
+	<io.cucumber.version>4.2.6</io.cucumber.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -76,14 +77,14 @@
 		<dependency>
 			<groupId>io.github.bonigarcia</groupId>
 			<artifactId>webdrivermanager</artifactId>
-			<version>3.0.0</version>
+			<version>3.3.0</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>3.14.0</version>
+			<version>3.141.59</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
 		<dependency>
