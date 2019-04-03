@@ -13,7 +13,7 @@ Feature: 1001 EURO 20 for Free Delivery
     When a shopper adds the item to the shopping cart
     Then the system must display the following message:
       """
-      Bestel nog voor € 6,01 extra aan artikelen en je bestelling wordt gratis verzonden.
+      Bestel nog voor € 6,81 extra aan artikelen en je bestelling wordt gratis verzonden.
       """
 
   #@Scenario=2
@@ -26,4 +26,3 @@ Feature: 1001 EURO 20 for Free Delivery
       """
       Bestel nu en je bestelling wordt gratis verzonden!
       """
-     And ttest step uses "this"
