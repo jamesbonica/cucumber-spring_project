@@ -48,7 +48,7 @@ public class DriverBean {
 				System.out.println("Creating firefox local... ");
 				WebDriverManager.firefoxdriver().setup();
 				System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "true");
-				System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
+		//		System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 				driver = new FirefoxDriver(firefoxOptions);
 				break;
 			case "chrome":
